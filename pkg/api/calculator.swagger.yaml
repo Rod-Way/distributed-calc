@@ -1,0 +1,69 @@
+openapi: 3.0.1
+
+info:
+    title: Calculator
+    description: Api для калькулятора
+    version: v1
+
+servers:
+    - url: http://localhost:8080/api/v1
+
+paths:
+    /calculate:
+        post:
+            summary: Решить выражение
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CalculateRequest'
+                        example:
+                            expression: '2+2'
+                required: true
+            responses:
+                '200':
+                    description: Выражение успешно решено
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CalculateSuccesfulResponse'
+                            example:
+                                result: −82.4
+                '422':
+                    description: Плохое выражение
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CalculateErrorResponse'
+                            example:
+                                error: 'Expression is not valid'
+                '500':
+                    description: Ошибка сервера
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/CalculateErrorResponse'
+                            example:
+                                error: 'Internal server error'
+            x-codegen-request-body-name: body
+
+components:
+    schemas:
+        CalculateRequest:
+            type: object
+            properties:
+                expression:
+                    type: string
+        CalculateSuccesfulResponse:
+            type: object
+            properties:
+                result:
+                    type: number
+                    format: float
+        CalculateErrorResponse:
+            type: object
+            properties:
+                error:
+                    type: string
+
+x-original-swagger-version: '2.0'

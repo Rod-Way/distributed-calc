@@ -25,6 +25,8 @@ func New() *Server {
 
 func (s *Server) Start(port string) {
 
+	log.Info("starting on ", port)
+
 	s.E.Logger.SetLevel(log.INFO)
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
@@ -35,6 +37,7 @@ func (s *Server) Start(port string) {
 
 	go func() {
 		if err := s.E.Start(port); err != nil && err != http.ErrServerClosed {
+			log.Error("server error : ", err)
 			s.E.Logger.Fatal("shutting down the server")
 		}
 	}()

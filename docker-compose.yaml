@@ -1,0 +1,8 @@
+services:
+    disturbed-calculator:
+        build:
+            context: .
+        ports:
+            - '8080:8080'
+        environment:
+            - REST_SERVER_PORT=:8080

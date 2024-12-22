@@ -8,12 +8,12 @@ import (
 )
 
 type Config struct {
-	RestServerPort int `env:"REST_SERVER_PORT" env-default:"8080"`
+	RestServerPort string `env:"REST_SERVER_PORT" env-default:"localhost:8080" yaml:"REST_SERVER_PORT"`
 }
 
 func New(configName string) *Config {
 	cfg := &Config{}
-	configPath := fmt.Sprintf("./configs/%s", configName)
+	configPath := fmt.Sprintf(".backend/configs/%s", configName)
 	if err := readConfig(configPath, cfg); err != nil {
 		log.Printf("warning: failed to read config by path: %d", err)
 	} else {
