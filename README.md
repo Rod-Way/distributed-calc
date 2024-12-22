@@ -16,7 +16,7 @@
 docker-compose up -d
 ```
 
-Логи сервера можно посмотреть в `Docker Desktop`
+Логи сервера можно посмотреть в `Docker Desktop`.
 Команда для остановки сервиса:
 
 ```bash
@@ -26,7 +26,7 @@ docker compose down
 ## Пример curl запроса:
 
 ```bash
-curl -X 'POST' -w "%{http_code}"\
+curl -X 'POST'\
 'http://localhost:8080/api/v1/calculate' \
 -H 'Content-Type: application/json' \
 -d '{
